@@ -21,7 +21,7 @@ class CategoryItems extends StatelessWidget {
     //   ),
     // );
     Navigator.of(ctx).pushNamed(
-      '/category-meal',
+      CategoriesMealsScreen.routeName,
       arguments: {
         'id': id,
         'title': title,
