@@ -3,25 +3,35 @@ import 'package:flutter/material.dart';
 import './categories_screen.dart';
 import './favourites_screen.dart';
 import '../widgets/main_drawer.dart';
+import '../model/meal.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({super.key});
+  List<Meal> favouriteMeals;
+
+  TabsScreen(this.favouriteMeals);
 
   @override
   State<TabsScreen> createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  List<Map<String, dynamic>> pages = [
-    {
-      'page': CategoriesScreen(),
-      'title': 'Categories',
-    },
-    {
-      'page': FavouritesScreen(),
-      'title': 'Your Fourites',
-    }
-  ];
+  List<Map<String, dynamic>>? pages;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    pages = [
+      {
+        'page': CategoriesScreen(),
+        'title': 'Categories',
+      },
+      {
+        'page': FavouritesScreen(widget.favouriteMeals),
+        'title': 'Your Fourites',
+      }
+    ];
+    super.initState();
+  }
 
   int selectedPageIndex = 0;
 
@@ -37,11 +47,11 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          pages[selectedPageIndex]['title'],
+          pages![selectedPageIndex]['title'],
         ),
       ),
       drawer: MainDrawer(),
-      body: pages[selectedPageIndex]['page'],
+      body: pages![selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         onTap: selectScreen,
         // backgroundColor: Theme.of(context).primaryColor,
